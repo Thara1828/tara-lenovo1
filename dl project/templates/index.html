@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Air Quality Prediction</h1>
+
+        <!-- Add enctype for image upload -->
+        <form action="/predict" method="post" enctype="multipart/form-data" class="form-box">
+            <div class="grid">
+                <label>PM2.5</label>
+                <input type="number" step="any" name="PM2.5" required>
+                
+                <label>PM10</label>
+                <input type="number" step="any" name="PM10" required>
+
+                <label>NO2</label>
+                <input type="number" step="any" name="NO2" required>
+
+                <label>SO2</label>
+                <input type="number" step="any" name="SO2" required>
+
+                <label>CO</label>
+                <input type="number" step="any" name="CO" required>
+
+                <label>O3</label>
+                <input type="number" step="any" name="O3" required>
+
+                <label>Temperature (°C)</label>
+                <input type="number" step="any" name="Temperature" required>
+
+                <label>Humidity (%)</label>
+                <input type="number" step="any" name="Humidity" required>
+
+                <label>Wind Speed (m/s)</label>
+                <input type="number" step="any" name="Wind_Speed" required>
+
+                <!-- 🖼️ New Image Upload Option -->
+                <label>Upload Image (optional)</label>
+                <input type="file" name="image_file" accept="image/*">
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="result">
+                <h2>{{ prediction_text }}</h2>
+
+                {% if image_path %}
+                    <div class="image-preview">
+                        <h3>Uploaded Image:</h3>
+                        <img src="{{ url_for('static', filename='uploads/' + image_path.split('/')[-1]) }}" alt="Uploaded Image">
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

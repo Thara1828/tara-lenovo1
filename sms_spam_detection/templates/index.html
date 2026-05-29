@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Spam Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>SMS Spam Detection</h1>
+            <p>Classify messages as Spam or Ham using RNN + NLP</p>
+        </header>
+
+        <main>
+            <form method="POST" class="form-box">
+                <label for="sms">Enter SMS message:</label>
+                <textarea name="sms" id="sms" placeholder="Type your SMS here...">{{ sms if sms else "" }}</textarea>
+                <button type="submit">Check Message</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result-card {{ prediction|lower }}">
+                <h2>{{ prediction }}</h2>
+                <p><strong>Probability:</strong> {{ "%.2f"|format(prob) }}</p>
+            </div>
+            {% endif %}
+        </main>
+
+        <footer>
+            <p>Made with ❤️ using Flask & Deep Learning</p>
+        </footer>
+    </div>
+</body>
+</html>
